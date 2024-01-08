@@ -3,40 +3,45 @@
 
 <PageTitle>Weather</PageTitle>
 
-<h1>Weather</h1>
+<MudPaper>
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h2">Weather</MudText>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText Typo="Typo.body1">This component demonstrates fetching data from the server.</MudText>            
+        @if (forecasts == null)
+        {
+            <MudText>Loading...</MudText>
+        }
+        else
+        {
+            <MudTable Items="@forecasts.Take(4)" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+                <HeaderContent>
+                    <MudTh>Date</MudTh>
+                    <MudTh>Temp. (C)</MudTh>
+                    <MudTh>Temp. (F)</MudTh>
+                    <MudTh>Summary</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Nr">@context.Date</MudTd>
+                    <MudTd DataLabel="Sign">@context.TemperatureC</MudTd>
+                    <MudTd DataLabel="Name">@context.TemperatureF</MudTd>
+                    <MudTd DataLabel="Position" HideSmall="_hidePosition">@context.Summary</MudTd>
+                </RowTemplate>
+            </MudTable>
 
-<p>This component demonstrates fetching data from the server.</p>
+            <MudSwitch @bind-Checked="_hidePosition">Hide <b>position</b> when Breakpoint=Xs</MudSwitch>
+            <MudSwitch @bind-Checked="_loading">Show Loading</MudSwitch>
+        }
+        </MudCardContent>
+    </MudCard>
+</MudPaper>
 
-@if (forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 
 @code {
+    private bool _hidePosition;
+    private bool _loading;
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()

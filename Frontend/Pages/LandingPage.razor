@@ -1,0 +1,30 @@
+@page "/hero"
+@layout HeroLayout
+<style>
+    .hero-container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<div class="hero-container">
+
+    <MudGrid Justify="Justify.Center">
+        <MudItem>
+            <MudCard Outlined="true" Style="y: -50%;">
+                <MudCardContent>
+                    <MudText>Story of the day</MudText>
+                    <MudText Typo="Typo.body2">The quick, brown fox jumps over a lazy dog.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</div>          
